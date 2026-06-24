@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../../lib/api'
 import { useAuthStore } from '../../store/authStore'
@@ -18,6 +18,21 @@ export default function LoginPage() {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const [demoLoading, setDemoLoading] = useState(null)
+  const [slowWarning, setSlowWarning] = useState(false)
+  const slowTimerRef = useRef(null)
+
+  const isLoading = loading || demoLoading !== null
+
+  // Start slow warning timer whenever a login is in progress
+  useEffect(() => {
+    if (isLoading) {
+      slowTimerRef.current = setTimeout(() => setSlowWarning(true), 4000)
+    } else {
+      clearTimeout(slowTimerRef.current)
+      setSlowWarning(false)
+    }
+    return () => clearTimeout(slowTimerRef.current)
+  }, [isLoading])
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -68,6 +83,13 @@ export default function LoginPage() {
           <p className="text-gray-400 text-sm mt-1">Sign in to your account</p>
         </div>
 
+        {/* Slow warning banner */}
+        {slowWarning && (
+          <div className="bg-yellow-950 border border-yellow-800 text-yellow-400 text-sm rounded-lg px-4 py-3 mb-4 text-center">
+            The server is waking up from sleep — this can take up to a minute on the free tier. Hang tight!
+          </div>
+        )}
+
         {/* Demo accounts */}
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 mb-4">
           <p className="text-xs font-medium text-gray-500 mb-3">Try a demo account</p>
@@ -76,7 +98,7 @@ export default function LoginPage() {
               <button
                 key={account.email}
                 onClick={() => handleDemoLogin(account.email)}
-                disabled={demoLoading !== null || loading}
+                disabled={isLoading}
                 className={`text-sm font-medium px-4 py-2.5 rounded-lg border transition disabled:opacity-50 disabled:cursor-not-allowed ${account.color}`}
               >
                 {demoLoading === account.email ? 'Signing in...' : account.label}
@@ -130,7 +152,7 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              disabled={loading || demoLoading !== null}
+              disabled={isLoading}
               className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg px-4 py-2.5 text-sm transition"
             >
               {loading ? 'Signing in...' : 'Sign in'}

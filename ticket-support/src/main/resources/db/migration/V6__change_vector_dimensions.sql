@@ -1,0 +1,1 @@
+ALTER TABLE knowledge_base_documents ALTER COLUMN embedding TYPE vector(1024);

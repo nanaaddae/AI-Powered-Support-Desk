@@ -31,3 +31,5 @@ vite.config.ts.timestamp-*
 *.code-workspace
 .vscode-test/
 Thumbs.db 
+
+!**/src/main/resources/db/migration/*.sql

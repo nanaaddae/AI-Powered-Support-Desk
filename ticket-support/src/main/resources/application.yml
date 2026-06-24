@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: ticket-support
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/supportdesk}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET}
+      expiration: 86400000
+
+
+
+
+cohere:
+  api:
+    key: ${COHERE_API_KEY}
+
+
+groq:
+  api:
+    key: ${GROQ_API_KEY}
+    
+   

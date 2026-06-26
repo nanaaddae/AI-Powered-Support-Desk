@@ -422,7 +422,7 @@ frontend/
 
 1. Update `src/lib/api.js` `baseURL` to point to your deployed backend URL
 2. Deploy via Vercel (connect GitHub repo, auto-detects Vite) or Render Static Site
-3. Set `VITE_API_URL` env var if you parameterize the base URL
+3. Set `VITE_ ` env var if you parameterize the base URL
 
 ### Important before deploying
 - Remove `logging.level.org.hibernate: DEBUG` from `application.yml`

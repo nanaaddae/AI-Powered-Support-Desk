@@ -9,8 +9,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 @EnableAsync
 public class TicketSupportApplication {
 
-		
-
+	
 	public static void main(String[] args) 
 	{
 

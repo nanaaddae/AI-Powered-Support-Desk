@@ -86,7 +86,7 @@ export default function LoginPage() {
         {/* Slow warning banner */}
         {slowWarning && (
           <div className="bg-yellow-950 border border-yellow-800 text-yellow-400 text-sm rounded-lg px-4 py-3 mb-4 text-center">
-            The server is waking up from sleep — this can take up to a minute on the free tier. Hang tight!
+            The server is waking up from sleep — this can take up to a 2 minutes on the free tier. Hang tight!
           </div>
         )}
 

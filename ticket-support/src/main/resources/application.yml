@@ -13,7 +13,7 @@ spring:
       initialization-fail-timeout: -1
     
   jpa:
-    open-in-view: false
+    open-in-view: true
     hibernate:
       ddl-auto: none
       
